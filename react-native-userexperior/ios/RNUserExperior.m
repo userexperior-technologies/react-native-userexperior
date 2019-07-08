@@ -57,7 +57,7 @@ RCT_EXPORT_METHOD(addInSecureViewBucket: (nonnull NSNumber *) tag) {
     });
 }
 
-RCT_EXPORT_METHOD(removeFromSecureBucket: (nonnull NSNumber *) tag) {
+RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView* view = [self.bridge.uiManager viewForReactTag:tag];
         [UserExperior unmarkViewAsSensitive:view];
