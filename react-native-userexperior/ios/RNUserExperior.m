@@ -32,6 +32,12 @@ RCT_EXPORT_METHOD(setUserIdentifier: (NSString *) userIdentifier){
     });
 }
 
+RCT_EXPORT_METHOD(startScreen: (NSString *) screenName){
+    dispatch_async(self.methodQueue, ^{
+        [UserExperior startScreen:screenName];
+    });
+}
+    
 RCT_EXPORT_METHOD(resumeRecording){
     dispatch_async(self.methodQueue, ^{
         [UserExperior resumeRecording];
