@@ -6,8 +6,7 @@
  * @flow
  */
 
-import React, {Fragment, Component} from 'react';
-
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,11 +24,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
-const App = () => {
-
+const App: () => React$Node = () => {
   return (
-    <Fragment>
+    <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView
@@ -71,9 +68,12 @@ const App = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </Fragment>
+    </>
   );
 };
+
+var UserExperior = require('react-native-userexperior');
+UserExperior.startRecording("e9eb046b-d3c5-4ce1-8203-8b614b1ada0c");
 
 const styles = StyleSheet.create({
   scrollView: {
