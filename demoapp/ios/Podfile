@@ -33,8 +33,7 @@ target 'demoApp' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
-  pod 'RNUserExperior', :path => '../node_modules/react-native-userexperior'
+  #pod 'react-native-userexperior', :path => '../node_modules/react-native-userexperior'
 
   target 'demoAppTests' do
     inherit! :search_paths
