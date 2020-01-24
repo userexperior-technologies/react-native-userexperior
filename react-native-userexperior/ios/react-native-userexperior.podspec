@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "userexperior-technologies" => "userexperior1@gmail.com" }
   s.platform     = :ios, "9.0"
-  s.source           = { :git => 'https://github.com/userexperior-technologies/react-native-userexperior.git', :tag => s.version.to_s }
-  s.source_files  = "react-native-userexperior/ios/*.{h,m}"
+  s.source           = { :git => 'https://github.com/theshekhargupta/react-native-userexperior/tree/master/ios.git', :tag => s.version }
+  s.source_files  = "Classes/*.{h,m}"
   #s.requires_arc = true
 
 
