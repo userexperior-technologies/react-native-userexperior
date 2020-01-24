@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B3E7B58A1CC2AC0600A0062D /* RNUserExperior.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNUserExperior.m */; };
-		D534D28522AAAA9500F473D3 /* UserExperior.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D534D28322AAAA9500F473D3 /* UserExperior.a */; };
+		D534D28522AAAA9500F473D3 /* UserExperior.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D534D28322AAAA9500F473D3 /* UserExperior.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
