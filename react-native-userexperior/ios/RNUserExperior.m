@@ -88,6 +88,19 @@ RCT_EXPORT_METHOD(optOut){
     });
 }
 
+RCT_EXPORT_METHOD(startTimer: (NSString *) timerName){
+    dispatch_async(self.methodQueue, ^{
+        [UserExperior endTimer:timerName];
+    });
+}
+
+RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
+    dispatch_async(self.methodQueue, ^{
+        [UserExperior endTimer:timerName];
+    });
+}
+
+
 // using Callbacks
 RCT_EXPORT_METHOD(getOptOutStatus:(RCTResponseSenderBlock)callback){
   BOOL status = [UserExperior getOptOutStatus];
