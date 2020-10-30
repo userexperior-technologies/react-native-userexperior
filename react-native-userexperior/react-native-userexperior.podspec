@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "react-native-userexperior"
-  s.version      = "1.2.11"
+  s.version      = "1.2.13"
   s.summary      = "RNUserExperior"
   s.homepage     = "https://github.com/userexperior-technologies/react-native-userexperior"
   s.license      = "MIT"
