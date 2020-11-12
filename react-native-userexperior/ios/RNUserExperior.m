@@ -100,6 +100,32 @@ RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
     });
 }
 
+RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties)
+{
+    [UserExperior setUserProperties:properties];
+}
+
+RCT_EXPORT_METHOD(logEvent:(NSString*)eventName)
+{
+    [UserExperior logEvent:eventName];
+}
+
+RCT_EXPORT_METHOD(logEvent:(NSString*)eventName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
+{
+    [UserExperior logEvent:eventName properties:properties];
+}
+
+RCT_EXPORT_METHOD(logMessage:(NSString*)messageName)
+{
+    [UserExperior logMessage:messageName];
+}
+
+RCT_EXPORT_METHOD(logMessage:(NSString*)messageName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
+{
+    [UserExperior logMessage:messageName properties:properties];
+}
+
+
 
 // using Callbacks
 RCT_EXPORT_METHOD(getOptOutStatus:(RCTResponseSenderBlock)callback){

@@ -33,6 +33,26 @@ class UserExperior {
         UserExperiorBridge.setUserIdentifier(userIdentifier);
     }
 
+    static setUserProperties(properties) {
+        UserExperiorBridge.setUserProperties(properties);
+    }
+
+    static logEvent(eventName, properties) {
+        if(typeof properties !== "undefined" || properties !== null){
+            UserExperiorBridge.logEvent(eventName, properties);
+        } else {
+            UserExperiorBridge.logEvent(eventName);
+        }
+    }
+
+    static logMessage(messageName, properties) {
+        if(typeof properties !== "undefined" || properties !== null){
+            UserExperiorBridge.logMessage(messageName, properties);
+        } else {
+            UserExperiorBridge.logMessage(messageName);
+        }
+    }
+
     static setCustomTag(customTag, type) {
         if (!customTag && !type) {
             console.log('UserExperior : setCustomTag params are invalid');
