@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -18,6 +19,10 @@ import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.userexperior.UserExperior;
 import com.userexperior.utilities.SecureViewBucket;
+
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 
 public class RNUserExperiorPackage implements ReactPackage {
 	
@@ -96,6 +101,93 @@ public class RNUserExperiorPackage implements ReactPackage {
                 UserExperior.setUserIdentifier(userIdentifier);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void setUserProperties(ReadableMap properties) {
+            if(properties != null) {
+                HashMap<String, Object> map = new HashMap<String, Object>();
+
+                ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    ReadableType type = properties.getType(key);
+                    if (type == ReadableType.Boolean) {
+                        map.put(key, properties.getBoolean(key));
+                    } else if (type == ReadableType.Number) {
+                        map.put(key, properties.getDouble(key));
+                    } else {
+                        map.put(key, properties.getString(key));
+                    }
+                }
+                UserExperior.setUserProperties(map);
+            }
+        }
+
+        @ReactMethod
+        public void logEvent(String event) {
+            try {
+                UserExperior.logEvent(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void logEvent(String event, ReadableMap properties) {
+            if (properties != null) {
+
+                HashMap<String, Object> map = new HashMap<String, Object>();
+
+                ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    ReadableType type = properties.getType(key);
+                    if (type == ReadableType.Boolean) {
+                        map.put(key, properties.getBoolean(key));
+                    } else if (type == ReadableType.Number) {
+                        map.put(key, properties.getDouble(key));
+                    } else {
+                        map.put(key, properties.getString(key));
+                    }
+                }
+                UserExperior.logEvent(event, map);
+            } else {
+                UserExperior.logEvent(event);
+            }
+        }
+
+        @ReactMethod
+        public void logMessage(String msg) {
+            try {
+                UserExperior.logMessage(msg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void logMessage(String msg, ReadableMap properties) {
+            if (properties != null) {
+
+                HashMap<String, Object> map = new HashMap<String, Object>();
+
+                ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    ReadableType type = properties.getType(key);
+                    if (type == ReadableType.Boolean) {
+                        map.put(key, properties.getBoolean(key));
+                    } else if (type == ReadableType.Number) {
+                        map.put(key, properties.getDouble(key));
+                    } else {
+                        map.put(key, properties.getString(key));
+                    }
+                }
+                UserExperior.logMessage(msg, map);
+            } else {
+                UserExperior.logMessage(msg);
             }
         }
 

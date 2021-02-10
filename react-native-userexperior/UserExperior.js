@@ -37,12 +37,28 @@ class UserExperior {
         UserExperiorBridge.setUserProperties(properties);
     }
 
+    static logEvent(eventName) {
+        if (!eventName) {
+            console.log('UserExperior : eventName param is invalid');
+            return;
+        }
+        UserExperiorBridge.logEvent(eventName);
+    }
+
     static logEvent(eventName, properties) {
         if(typeof properties !== "undefined" || properties !== null){
             UserExperiorBridge.logEvent(eventName, properties);
         } else {
             UserExperiorBridge.logEvent(eventName);
         }
+    }
+
+    static logMessage(messageName) {
+        if (!messageName) {
+            console.log('UserExperior : messageName param is invalid');
+            return;
+        }
+        UserExperiorBridge.logMessage(messageName);
     }
 
     static logMessage(messageName, properties) {
