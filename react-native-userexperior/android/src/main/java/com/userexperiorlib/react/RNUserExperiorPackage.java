@@ -121,7 +121,11 @@ public class RNUserExperiorPackage implements ReactPackage {
                         map.put(key, properties.getString(key));
                     }
                 }
-                UserExperior.setUserProperties(map);
+                try {
+                    UserExperior.setUserProperties(map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -152,9 +156,17 @@ public class RNUserExperiorPackage implements ReactPackage {
                         map.put(key, properties.getString(key));
                     }
                 }
-                UserExperior.logEvent(event, map);
+                try {
+                    UserExperior.logEvent(event, map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
-                UserExperior.logEvent(event);
+                try {
+                    UserExperior.logEvent(event);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -185,9 +197,17 @@ public class RNUserExperiorPackage implements ReactPackage {
                         map.put(key, properties.getString(key));
                     }
                 }
-                UserExperior.logMessage(msg, map);
+                try {
+                    UserExperior.logMessage(msg, map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
-                UserExperior.logMessage(msg);
+                try {
+                    UserExperior.logMessage(msg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
