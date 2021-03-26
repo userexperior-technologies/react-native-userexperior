@@ -1,6 +1,6 @@
 
 #import "RNUserExperior.h"
-#import "UserExperior-Swift.h"
+@import UserExperiorSDK;
 #import <objc/runtime.h>
 
 @implementation RNUserExperior

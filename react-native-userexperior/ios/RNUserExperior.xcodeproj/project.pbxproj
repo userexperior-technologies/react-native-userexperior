@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B3E7B58A1CC2AC0600A0062D /* RNUserExperior.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNUserExperior.m */; };
-		D534D28522AAAA9500F473D3 /* UserExperior.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D534D28322AAAA9500F473D3 /* UserExperior.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,8 +26,6 @@
 		134814201AA4EA6300B7C361 /* libRNUserExperior.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNUserExperior.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* RNUserExperior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNUserExperior.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNUserExperior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNUserExperior.m; sourceTree = "<group>"; };
-		D534D28322AAAA9500F473D3 /* UserExperior.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UserExperior.a; sourceTree = "<group>"; };
-		D534D28422AAAA9500F473D3 /* UserExperior-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserExperior-Swift.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D534D28522AAAA9500F473D3 /* UserExperior.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +50,6 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				D534D28422AAAA9500F473D3 /* UserExperior-Swift.h */,
-				D534D28322AAAA9500F473D3 /* UserExperior.a */,
 				B3E7B5881CC2AC0600A0062D /* RNUserExperior.h */,
 				B3E7B5891CC2AC0600A0062D /* RNUserExperior.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
