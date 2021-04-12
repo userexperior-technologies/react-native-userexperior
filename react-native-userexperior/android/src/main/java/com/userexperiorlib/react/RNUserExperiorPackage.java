@@ -248,6 +248,38 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
 
         @ReactMethod
+        public void endTimer(String timerName, ReadableMap properties) {
+            if (properties != null) {
+
+                HashMap<String, Object> map = new HashMap<String, Object>();
+
+                ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    ReadableType type = properties.getType(key);
+                    if (type == ReadableType.Boolean) {
+                        map.put(key, properties.getBoolean(key));
+                    } else if (type == ReadableType.Number) {
+                        map.put(key, properties.getDouble(key));
+                    } else {
+                        map.put(key, properties.getString(key));
+                    }
+                }
+                try {
+                    UserExperior.endTimer(timerName, map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    UserExperior.endTimer(timerName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @ReactMethod
         public void setDeviceLocation(double latitude, double longitude) {
             try {
                 UserExperior.setDeviceLocation(latitude, longitude);
