@@ -102,6 +102,14 @@ class UserExperior {
         UserExperiorBridge.endTimer(timerName);
     }
 
+    static endTimer(timerName, properties) {
+        if(typeof properties !== "undefined" || properties !== null){
+            UserExperiorBridge.endTimer(timerName, properties);
+        } else {
+            UserExperiorBridge.endTimer(timerName);
+        }
+    }
+
     static setDeviceLocation(latitude, longitude) {
         if (latitude == null ||
             longitude == null) {

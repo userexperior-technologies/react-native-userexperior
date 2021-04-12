@@ -100,6 +100,11 @@ RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
     });
 }
 
+RCT_EXPORT_METHOD(endTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
+{
+    [UserExperior stopTimer:timerName properties:properties];
+}
+
 RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties)
 {
     [UserExperior setUserProperties:properties];
