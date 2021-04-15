@@ -247,7 +247,7 @@ public class RNUserExperiorPackage implements ReactPackage {
             }
         }
 
-        @ReactMethod
+        /*@ReactMethod
         public void endTimer(String timerName, ReadableMap properties) {
             if (properties != null) {
 
@@ -277,7 +277,7 @@ public class RNUserExperiorPackage implements ReactPackage {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
 
         @ReactMethod
         public void setDeviceLocation(double latitude, double longitude) {
