@@ -251,7 +251,7 @@ public class RNUserExperiorPackage implements ReactPackage {
         public void endTimer(String timerName, ReadableMap properties) {
             if (properties != null) {
 
-                HashMap<String, Object> map = new HashMap<String, Object>();
+                HashMap<String, String> map = new HashMap<String, String>();
 
                 ReadableMapKeySetIterator iterator = properties.keySetIterator();
                 while (iterator.hasNextKey()) {
