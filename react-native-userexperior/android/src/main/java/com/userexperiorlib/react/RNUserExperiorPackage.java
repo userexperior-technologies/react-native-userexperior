@@ -19,10 +19,10 @@ import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.userexperior.UserExperior;
 import com.userexperior.utilities.SecureViewBucket;
-
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.Promise;
 
 public class RNUserExperiorPackage implements ReactPackage {
 	
@@ -348,6 +348,15 @@ public class RNUserExperiorPackage implements ReactPackage {
         public void consent() {
             try {
                 UserExperior.consent();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void isRecording(Promise promise) {
+            try {
+                promise.resolve(UserExperior.isRecording());
             } catch (Exception e) {
                 e.printStackTrace();
             }
