@@ -154,6 +154,10 @@ class UserExperior {
         UserExperiorBridge.consent();
 
     }
+
+    static isRecording() {
+        UserExperiorBridge.isRecording();
+    }
 }
 
 module.exports = UserExperior;

@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/userexperior-technologies/react-native-userexperior/.git', :tag => s.version }
   s.source_files = "ios/**/*.{h,m}"
   #s.requires_arc = true
-  s.dependency 'UserExperior'
+  s.dependency 'UserExperior', '4.5.12'
   s.dependency "React"
 
 end
