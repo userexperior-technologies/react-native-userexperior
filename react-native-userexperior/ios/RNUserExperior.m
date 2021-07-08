@@ -16,13 +16,7 @@ RCT_EXPORT_MODULE(UserExperior)
 
 RCT_EXPORT_METHOD(startRecording: (NSString *) versionKey){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior initialize:versionKey];
-    });
-}
-
-RCT_EXPORT_METHOD(setCustomTag: (NSString *) customTag customType: (NSString *) customType){
-    dispatch_async(self.methodQueue, ^{
-        [UserExperior setCustomTagWithString:customTag customType:customType];
+        [UserExperior startRecordingWithVersionKey:versionKey];
     });
 }
 
@@ -34,7 +28,7 @@ RCT_EXPORT_METHOD(setUserIdentifier: (NSString *) userIdentifier){
 
 RCT_EXPORT_METHOD(startScreen: (NSString *) screenName){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior startScreen:screenName];
+        [UserExperior startScreenWithName:screenName];
     });
 }
     
@@ -59,50 +53,50 @@ RCT_EXPORT_METHOD(stopRecording){
 RCT_EXPORT_METHOD(addInSecureViewBucket: (nonnull NSNumber *) tag) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        [UserExperior markViewAsSensitive:view];
+        [UserExperior markSensitiveViewsWithViewToSecure:@[view]];
     });
 }
 
 RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        [UserExperior unmarkViewAsSensitive:view];
+        [UserExperior unmarkSensitiveViewsWithViewToUnBlock:@[view]];
     });
 }
 
 RCT_EXPORT_METHOD(consent){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior consent];
+        [UserExperior displayConsentRequest];
     });
 }
 
 RCT_EXPORT_METHOD(optIn){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior optIn];
+        [UserExperior consentOptIn];
     });
 }
 
 RCT_EXPORT_METHOD(optOut){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior optOut];
+        [UserExperior consentOptOut];
     });
 }
 
 RCT_EXPORT_METHOD(startTimer: (NSString *) timerName){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior startTimer:timerName];
+        [UserExperior startTimerWithName:timerName];
     });
 }
 
 RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior stopTimer:timerName];
+        [UserExperior stopTimerWithName:timerName];
     });
 }
 
 RCT_EXPORT_METHOD(endTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
 {
-    [UserExperior stopTimer:timerName properties:properties];
+    [UserExperior stopTimerWithName:timerName properties:properties];
 }
 
 RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties)
@@ -112,27 +106,27 @@ RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)prope
 
 RCT_EXPORT_METHOD(logEvent:(NSString*)eventName)
 {
-    [UserExperior logEvent:eventName];
+    [UserExperior logEventWithName:eventName];
 }
 
 RCT_EXPORT_METHOD(logEvent:(NSString*)eventName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
 {
-    [UserExperior logEvent:eventName properties:properties];
+    [UserExperior logEventWithName:eventName properties:properties];
 }
 
 RCT_EXPORT_METHOD(logMessage:(NSString*)messageName)
 {
-    [UserExperior logMessage:messageName];
+    [UserExperior logMessageWithName:messageName];
 }
 
 RCT_EXPORT_METHOD(logMessage:(NSString*)messageName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
 {
-    [UserExperior logMessage:messageName properties:properties];
+    [UserExperior logMessageWithName:messageName properties:properties];
 }
 
 // using Callbacks
 RCT_EXPORT_METHOD(getOptOutStatus:(RCTResponseSenderBlock)callback){
-  BOOL status = [UserExperior getOptOutStatus];
+  BOOL status = ![UserExperior consentState];
   callback(@[[NSNull null], [NSNumber numberWithBool:status]]);
 }
 

@@ -69,15 +69,6 @@ class UserExperior {
         }
     }
 
-    static setCustomTag(customTag, type) {
-        if (!customTag && !type) {
-            console.log('UserExperior : setCustomTag params are invalid');
-            return;
-        }
-        UserExperiorBridge.setCustomTag(customTag, type);
-    }
-
-
     static startScreen(screenName) {
         if (!screenName) {
             console.log('UserExperior : startScreen params are invalid');
