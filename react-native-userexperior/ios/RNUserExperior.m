@@ -126,7 +126,7 @@ RCT_EXPORT_METHOD(logMessage:(NSString*)messageName withProperties:(nullable NSD
 
 // using Callbacks
 RCT_EXPORT_METHOD(getOptOutStatus:(RCTResponseSenderBlock)callback){
-  BOOL status = ![UserExperior consentState];
+  BOOL status = [UserExperior consentState];
   callback(@[[NSNull null], [NSNumber numberWithBool:status]]);
 }
 
