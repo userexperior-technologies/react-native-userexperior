@@ -138,7 +138,7 @@ class UserExperior {
     }
 
     static getOptOutStatus() {
-        UserExperiorBridge.getOptOutStatus();
+        return UserExperiorBridge.getOptOutStatus();
     }
 
     static consent() {
@@ -147,7 +147,7 @@ class UserExperior {
     }
 
     static isRecording() {
-        UserExperiorBridge.isRecording();
+        return UserExperiorBridge.isRecording();
     }
 }
 

@@ -124,15 +124,19 @@ RCT_EXPORT_METHOD(logMessage:(NSString*)messageName withProperties:(nullable NSD
     [UserExperior logMessageWithName:messageName properties:properties];
 }
 
-// using Callbacks
-RCT_EXPORT_METHOD(getOptOutStatus:(RCTResponseSenderBlock)callback){
-  BOOL status = [UserExperior getOptOutStatus];
-  callback(@[[NSNull null], [NSNumber numberWithBool:status]]);
+// using Promise
+RCT_EXPORT_METHOD(getOptOutStatus:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL status = [UserExperior getOptOutStatus];
+    NSNumber *boolNumber = [NSNumber numberWithBool:status];
+    resolve(boolNumber);
 }
 
-RCT_EXPORT_METHOD(isRecording:(RCTResponseSenderBlock)callback){
-  BOOL status = [UserExperior isRecording];
-  callback(@[[NSNull null], [NSNumber numberWithBool:status]]);
+RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL status = [UserExperior isRecording];
+    NSNumber *boolNumber = [NSNumber numberWithBool:status];
+    resolve(boolNumber);
 }
 
 @end
