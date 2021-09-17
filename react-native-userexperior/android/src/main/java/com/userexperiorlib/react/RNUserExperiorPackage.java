@@ -336,9 +336,9 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
         
         @ReactMethod
-        public void getOptOutStatus() {
+        public void getOptOutStatus(Promise promise) {
             try {
-                UserExperior.getOptOutStatus();
+                promise.resolve(UserExperior.getOptOutStatus());
             } catch (Exception e) {
                 e.printStackTrace();
             }
