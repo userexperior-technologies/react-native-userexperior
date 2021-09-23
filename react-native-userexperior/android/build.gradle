@@ -17,6 +17,10 @@ repositories {
 	maven {
 		url "$rootDir/../node_modules/react-native/android"
 	}
+
+    /*maven {
+        url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+    }*/
 }
 
 android {
@@ -36,6 +40,8 @@ android {
 
 dependencies {
     //compile(name: 'userexperiorsdk-V2-2-04202018', ext: 'aar')
-	compile 'com.userexperior:userexperior-android:6.0.9'
+    //compile 'com.userexperior:userexperior-android:1.8.0-SNAPSHOT'
+	compile 'com.userexperior:userexperior-android:7.0.0'
+
 	compile 'com.facebook.react:react-native:+'
 }
