@@ -143,7 +143,6 @@ class UserExperior {
 
     static consent() {
         UserExperiorBridge.consent();
-
     }
 
     static isRecording() {
