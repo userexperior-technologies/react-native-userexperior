@@ -14,9 +14,9 @@
 
 RCT_EXPORT_MODULE(UserExperior)
 
-RCT_EXPORT_METHOD(startRecording: (NSString *) versionKey){
+RCT_EXPORT_METHOD(startRecording: (NSString *) versionKey withFw: (NSString *) fw withSv: (NSString *) sv) {
     dispatch_async(self.methodQueue, ^{
-        [UserExperior startRecordingWithVersionKey:versionKey];
+        [UserExperior startRecordingWithVersionKey:versionKey fw:fw sv:sv];
     });
 }
 

@@ -2,6 +2,9 @@
 var { NativeModules, findNodeHandle, InteractionManager } = require('react-native');
 var UserExperiorBridge = NativeModules.UserExperior;
 
+const fw = "rn"; // framework: React-Native
+const sv = "1.4.3"; // SDK/Plugin Version
+
 class UserExperior {
 
 	static startRecording(ueSdkAppVersionKey) {
@@ -9,7 +12,7 @@ class UserExperior {
             console.log('UserExperior : startRecording params are invalid');
             return;
         }
-        UserExperiorBridge.startRecording(ueSdkAppVersionKey);    
+        UserExperiorBridge.startRecording(ueSdkAppVersionKey, fw, sv) 
     }
 
     static stopRecording() {
