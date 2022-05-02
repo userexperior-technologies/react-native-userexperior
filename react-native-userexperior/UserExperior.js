@@ -12,7 +12,7 @@ class UserExperior {
             console.log('UserExperior : startRecording params are invalid');
             return;
         }
-        UserExperiorBridge.startRecording(ueSdkAppVersionKey, fw, sv) 
+        UserExperiorBridge.startRecording(ueSdkAppVersionKey, fw, sv);
     }
 
     static stopRecording() {
