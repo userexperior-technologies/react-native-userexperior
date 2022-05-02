@@ -59,9 +59,9 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
 
         @ReactMethod
-        public void startRecording(String ueSdkAppVersionKey) {
+        public void startRecording(String ueSdkAppVersionKey, String fw, String sv) {
             try {
-                UserExperior.startRecording(getReactApplicationContext(), ueSdkAppVersionKey);
+                UserExperior.startRecording(getReactApplicationContext(), ueSdkAppVersionKey, fw, sv);
             } catch (Exception e) {
                 e.printStackTrace();
             }
