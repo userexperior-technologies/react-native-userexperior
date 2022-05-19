@@ -88,6 +88,11 @@ RCT_EXPORT_METHOD(startTimer: (NSString *) timerName){
     });
 }
 
+RCT_EXPORT_METHOD(startTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
+{
+    [UserExperior startTimerWithName:timerName properties:properties];
+}
+
 RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
     dispatch_async(self.methodQueue, ^{
         [UserExperior stopTimerWithName:timerName];

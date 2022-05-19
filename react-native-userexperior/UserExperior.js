@@ -87,6 +87,14 @@ class UserExperior {
         }
         UserExperiorBridge.startTimer(timerName);
     }
+
+    static startTimer(timerName, properties) {
+        if(typeof properties !== "undefined" || properties !== null){
+            UserExperiorBridge.startTimer(timerName, properties);
+        } else {
+            UserExperiorBridge.startTimer(timerName);
+        }
+    }
 	
 	static endTimer(timerName) {
         if (!timerName) {
