@@ -239,6 +239,31 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
 
         @ReactMethod
+        public void startTimer(String timerName, ReadableMap properties) {
+            if (properties != null) {
+
+                HashMap<String, String> map = new HashMap<String, String>();
+
+                ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    map.put(key, properties.getString(key));
+                }
+                try {
+                    UserExperior.startTimer(timerName, map);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    UserExperior.startTimer(timerName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @ReactMethod
         public void endTimer(String timerName) {
             try {
                 UserExperior.endTimer(timerName);
