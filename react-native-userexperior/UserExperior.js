@@ -3,7 +3,7 @@ var { NativeModules, findNodeHandle, InteractionManager } = require('react-nativ
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
-const sv = "1.4.6"; // SDK/Plugin Version
+const sv = "1.4.7"; // SDK/Plugin Version
 
 class UserExperior {
 
