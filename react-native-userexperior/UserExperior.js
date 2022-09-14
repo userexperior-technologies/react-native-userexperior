@@ -3,7 +3,7 @@ var { NativeModules, findNodeHandle, InteractionManager } = require('react-nativ
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
-const sv = "1.4.7"; // SDK/Plugin Version
+const sv = "1.4.8"; // SDK/Plugin Version
 
 class UserExperior {
 
@@ -128,7 +128,6 @@ class UserExperior {
         }
 
         UserExperiorBridge.addInSecureViewBucket(findNodeHandle(ref));
-        console.log('UserExperior: masking done!!!!!!!!!!!!!!!!!!!!!!!!');
     }
 
     static removeFromSecureViewBucket(ref) {
