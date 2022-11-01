@@ -3,7 +3,7 @@ var { NativeModules, findNodeHandle, InteractionManager } = require('react-nativ
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
-const sv = "1.4.10"; // SDK/Plugin Version
+const sv = "1.4.11"; // SDK/Plugin Version
 
 class UserExperior {
 
@@ -122,21 +122,29 @@ class UserExperior {
     }
 	
 	static addInSecureViewBucket(ref) {
-        if (ref == null) {
-            console.log('UserExperior : Can\'t add a null ref to secure view bucket (are you sure the component has a ref?)');
-            return;
+        try {
+            if (ref == null) {
+                console.log('UserExperior : Can\'t add a null ref to secure view bucket (are you sure the component has a ref?)');
+                return;
+            } 
+            UserExperiorBridge.addInSecureViewBucket(findNodeHandle(ref));
         }
-
-        UserExperiorBridge.addInSecureViewBucket(findNodeHandle(ref));
+       catch(error) {
+            console.log('UserExperior (addInSecureViewBucket): Error message: ' + error);  
+       }
     }
 
     static removeFromSecureViewBucket(ref) {
-        if (ref == null) {
-            console.log('UserExperior : Can\'t remove a null ref from secure view bucket (are you sure the component has a ref?)');
-            return;
+        try {
+            if (ref == null) {
+                console.log('UserExperior : Can\'t remove a null ref from secure view bucket (are you sure the component has a ref?)');
+                return;
+            }
+            UserExperiorBridge.removeFromSecureViewBucket(findNodeHandle(ref));
         }
-        
-        UserExperiorBridge.removeFromSecureViewBucket(findNodeHandle(ref));
+       catch(error) {
+            console.log('UserExperior (removeFromSecureViewBucket): Error message: ' + error);  
+       }
     }
 
     static optIn() {
