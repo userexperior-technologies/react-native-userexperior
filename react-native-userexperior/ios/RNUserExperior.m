@@ -53,14 +53,18 @@ RCT_EXPORT_METHOD(stopRecording){
 RCT_EXPORT_METHOD(addInSecureViewBucket: (nonnull NSNumber *) tag) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        [UserExperior markSensitiveViewsWithViewToSecure:@[view]];
+        if (view) {
+            [UserExperior markSensitiveViewsWithViewToSecure:@[view]];
+        }
     });
 }
 
 RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        [UserExperior unmarkSensitiveViewsWithViewToUnBlock:@[view]];
+        if (view) {
+            [UserExperior unmarkSensitiveViewsWithViewToUnBlock:@[view]];
+        }
     });
 }
 
