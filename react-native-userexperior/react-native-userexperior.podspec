@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0"
   s.source           = { :git => 'https://github.com/userexperior-technologies/react-native-userexperior/.git', :tag => s.version }
   s.source_files = "ios/**/*.{h,m}"
-  s.dependency 'UserExperior', '5.1.6'
+  s.dependency 'UserExperior', '5.1.7'
   s.dependency 'UECrashReporter', '~> 1.0.1'
   s.dependency "React"
 
