@@ -1,4 +1,3 @@
-
 package com.userexperiorlib.react;
 
 import android.util.Log;
@@ -23,6 +22,10 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.Promise;
+import com.userexperior.interfaces.recording.UserExperiorListener;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class RNUserExperiorPackage implements ReactPackage {
 	
@@ -385,6 +388,31 @@ public class RNUserExperiorPackage implements ReactPackage {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        @ReactMethod
+        public void getSessionUrl(String tpName, Promise promise) {
+            try {
+                String url = UserExperior.getSessionUrl(tpName);
+                promise.resolve(""+url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void setUserExperiorListener(){
+            UserExperior.setUserExperiorListener(new UserExperiorListener() {
+                @Override
+                public void onUserExperiorStarted() {
+                    WritableMap params = Arguments.createMap();
+                    params.putBoolean("success", true);
+
+                    reactContext
+                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit("ON_USER_EXPERIOR_STARTED_INTERNAL", "true");
+                }
+            });
         }
     }
 }

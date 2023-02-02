@@ -1,5 +1,5 @@
 'use strict';
-var { NativeModules, findNodeHandle, InteractionManager } = require('react-native');
+var { NativeModules, findNodeHandle, InteractionManager, NativeEventEmitter } = require('react-native');
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
@@ -165,6 +165,18 @@ class UserExperior {
 
     static isRecording() {
         return UserExperiorBridge.isRecording();
+    }
+
+    static getSessionUrl(tpName) {
+        var url = UserExperiorBridge.getSessionUrl(tpName);
+        return url;
+    }
+
+    static setUserExperiorListener() {
+        const emitter = new NativeEventEmitter();
+        emitter.addListener('ON_USER_EXPERIOR_STARTED_INTERNAL',() => {
+            emitter.emit('ON_USER_EXPERIOR_STARTED', "true");
+        });
     }
 }
 
