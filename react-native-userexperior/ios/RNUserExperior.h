@@ -6,8 +6,10 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTUIManager.h>
 #endif
+#import <React/RCTEventEmitter.h>
 
-@interface RNUserExperior : NSObject <RCTBridgeModule>
+@interface RNUserExperior : RCTEventEmitter <RCTBridgeModule>
 
 @end
   
+

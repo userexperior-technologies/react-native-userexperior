@@ -3,6 +3,16 @@
 @import UserExperiorSDK;
 #import <objc/runtime.h>
 
+#import <React/RCTUIManager.h>
+#import <React/RCTUIManagerUtils.h>
+#import <React/RCTEventEmitter.h>
+
+static NSString* const RN_ON_USER_EXPERIOR_STARTED = @"ON_USER_EXPERIOR_STARTED";
+
+@interface RNUserExperior()
+@property (atomic, assign) NSInteger numEventListeners;
+@end
+
 @implementation RNUserExperior
 
 @synthesize bridge = _bridge;
@@ -147,6 +157,86 @@ RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     NSNumber *boolNumber = [NSNumber numberWithBool:status];
     resolve(boolNumber);
 }
+
+
+RCT_EXPORT_METHOD(getSessionUrl:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{    
+    NSString *url = [UserExperior getSessionUrlWithPlatformName:@"FIREBASE_CRASHLYTICS"];
+
+    if (url)
+    {
+        resolve(url);
+    }
+    else
+    {
+        NSString *code = @"no_url";
+        NSString *message = @"Could not retrieve the url for the current session.";
+        NSError *error = [NSError errorWithDomain:@"RNUE" code:2 userInfo:nil];
+        
+        reject(code, message, error);
+    }
+
+}
+
+#pragma mark Event related methods
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[RN_ON_USER_EXPERIOR_STARTED];
+}
+
+/// Will be called when this module's first listener is added.
+-(void)startObserving
+{
+    if (self.numEventListeners == 0)
+    {
+        NSDictionary* eventBody = @{@"success": @(true)};
+        [self sendEventWithName:RN_ON_USER_EXPERIOR_STARTED body:eventBody];
+
+    }
+    
+    self.numEventListeners++;
+}
+
+-(void)stopObserving
+{
+    self.numEventListeners--;
+    if (self.numEventListeners == 0)
+    {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:RN_ON_USER_EXPERIOR_STARTED object:nil];
+    }
+    else if (self.numEventListeners < 0)
+    {
+        NSLog(@"RNUE: Removed more event listeners than were added.");
+    }
+}
+
+- (void)addObserverForVerificationNotification:(NSNotification *)notification
+{
+    if (![notification.name isEqualToString:RN_ON_USER_EXPERIOR_STARTED])
+    {
+        return;
+    }
+    BOOL started = [notification.userInfo[@"started"] boolValue];
+    [self verifyEventSender:started];
+}
+
+- (void)verifyEventSender:(BOOL)verifyResult
+{
+    if (self.numEventListeners > 0)
+    {
+        NSDictionary* eventBody = @{@"success": @(verifyResult)};
+        if (verifyResult == FALSE)
+        {
+            NSString *message = @"UE session verification failed"; 
+            NSError *error = [NSError errorWithDomain:@"RNUE" code:1 userInfo:@{NSLocalizedDescriptionKey : message}];
+            eventBody = @{@"success": @(verifyResult), @"error": error};
+        }
+        
+        [self sendEventWithName:RN_ON_USER_EXPERIOR_STARTED body:eventBody];
+    }
+}
+
 
 @end
   
