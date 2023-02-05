@@ -407,10 +407,7 @@ public class RNUserExperiorPackage implements ReactPackage {
                 public void onUserExperiorStarted() {
                     WritableMap params = Arguments.createMap();
                     params.putBoolean("success", true);
-
-                    reactContext
-                            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                            .emit("ON_USER_EXPERIOR_STARTED_INTERNAL", "true");
+                    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("ON_USER_EXPERIOR_STARTED_INTERNAL", "true");
                 }
             });
         }
