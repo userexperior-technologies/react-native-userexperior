@@ -170,14 +170,7 @@ class UserExperior {
     static getSessionUrl(tpName) {
         var url = UserExperiorBridge.getSessionUrl(tpName);
         return url;
-    }
-
-    static setUserExperiorListener() {
-        const emitter = new NativeEventEmitter();
-        emitter.addListener('ON_USER_EXPERIOR_STARTED_INTERNAL',() => {
-            emitter.emit('ON_USER_EXPERIOR_STARTED', "true");
-        });
-    }
+    }    
 }
 
 module.exports = UserExperior;
