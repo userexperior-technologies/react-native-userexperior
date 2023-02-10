@@ -9,7 +9,7 @@
 
 static NSString* const RN_ON_USER_EXPERIOR_STARTED = @"ON_USER_EXPERIOR_STARTED";
 
-@interface RNUserExperior()
+@interface RNUserExperior() <UserExperiorDelegate>
 @property (atomic, assign) NSInteger numEventListeners;
 @end
 
@@ -27,6 +27,7 @@ RCT_EXPORT_MODULE(UserExperior)
 RCT_EXPORT_METHOD(startRecording: (NSString *) versionKey withFw: (NSString *) fw withSv: (NSString *) sv) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior startRecordingWithVersionKey:versionKey fw:fw sv:sv];
+        [UserExperior setDelegate:self];
     });
 }
 
@@ -161,7 +162,7 @@ RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
 
 RCT_EXPORT_METHOD(getSessionUrl:(NSString*)tpName :(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
-{    
+{
     NSString *url = [UserExperior getSessionUrlWithPlatformName:tpName];
     if (url)
     {
