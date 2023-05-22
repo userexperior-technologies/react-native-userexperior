@@ -53,6 +53,7 @@ public class RNUserExperiorPackage implements ReactPackage {
 
         RNUserExperiorModule(ReactApplicationContext reactContext) {
             super(reactContext);
+            setUserExperiorListener();
         }
 
         @Override
@@ -463,13 +464,13 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
 
         @ReactMethod
-        public void setUserExperiorListener(){
+        private void setUserExperiorListener(){
             UserExperior.setUserExperiorListener(new UserExperiorListener() {
                 @Override
                 public void onUserExperiorStarted() {
-                    WritableMap params = Arguments.createMap();
-                    params.putBoolean("success", true);
-                    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("ON_USER_EXPERIOR_STARTED_INTERNAL", "true");
+                    //WritableMap params = Arguments.createMap();
+                    //params.putBoolean("success", true);
+                    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("ON_USER_EXPERIOR_STARTED", true);
                 }
             });
         }

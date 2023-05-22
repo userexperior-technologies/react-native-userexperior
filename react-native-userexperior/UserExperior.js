@@ -1,5 +1,5 @@
 'use strict';
-var { NativeModules, findNodeHandle, InteractionManager, NativeEventEmitter } = require('react-native');
+var { NativeModules, findNodeHandle, InteractionManager } = require('react-native');
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
