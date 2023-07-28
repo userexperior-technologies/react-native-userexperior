@@ -1,6 +1,6 @@
 {
   "name": "react-native-userexperior",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "spec": "latest",
   "description": "UserExperior react native module",
   "main": "index.js",
@@ -13,6 +13,6 @@
   "author": "UserExperior Technologies Pvt. Ltd.",
   "license": "",
   "peerDependencies": {
-      "react-native": "^0.69"
+      "react-native": "^0.72"
   }
 }
