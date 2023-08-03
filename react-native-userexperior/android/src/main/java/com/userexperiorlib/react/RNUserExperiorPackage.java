@@ -17,6 +17,7 @@ import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.userexperior.UserExperior;
+import com.userexperior.utilities.SecureViewBucket;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -53,7 +54,6 @@ public class RNUserExperiorPackage implements ReactPackage {
 
         RNUserExperiorModule(ReactApplicationContext reactContext) {
             super(reactContext);
-            setUserExperiorListener();
         }
 
         @Override
@@ -318,7 +318,7 @@ public class RNUserExperiorPackage implements ReactPackage {
                     try {
                         View view = nativeViewHierarchyManager.resolveView(id);
                         if (view != null){
-                            UserExperior.markSensitiveView(view);
+                            SecureViewBucket.addInSecureViewBucket(view);
                         }
                     } catch(Exception e) {
                         Log.d("UserExperior", "addInSecureViewBucket: can't find view by id: " + id);
@@ -336,76 +336,13 @@ public class RNUserExperiorPackage implements ReactPackage {
                     try {
                         View view = nativeViewHierarchyManager.resolveView(id);
                         if (view != null){
-                            UserExperior.unmarkSensitiveView(view);
+                            SecureViewBucket.removeFromSecureViewBucket(view);
                         }
                     } catch(Exception e) {
                         Log.d("UserExperior", "removeFromSecureViewBucket: can't find view by id: " + id);
                     }
                 }
             });
-        }
-
-        @ReactMethod
-        public void markSensitiveView(final int id) {
-            UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
-            uiManager.addUIBlock(new UIBlock() {
-                @Override
-                public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
-                    try {
-                        View view = nativeViewHierarchyManager.resolveView(id);
-                        if (view != null){
-                            UserExperior.markSensitiveView(view);
-                        }
-                    } catch(Exception e) {
-                        Log.d("UserExperior", "markSensitiveView: can't find view by id: " + id);
-                    }
-                }
-            });
-        }
-
-        @ReactMethod
-        public void unmarkSensitiveView(final int id) {
-            UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
-            uiManager.addUIBlock(new UIBlock() {
-                @Override
-                public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
-                    try {
-                        View view = nativeViewHierarchyManager.resolveView(id);
-                        if (view != null){
-                            UserExperior.unmarkSensitiveView(view);
-                        }
-                    } catch(Exception e) {
-                        Log.d("UserExperior", "unmarkSensitiveView: can't find view by id: " + id);
-                    }
-                }
-            });
-        }
-
-        @ReactMethod
-        public void exposeSensitiveView(final int id) {
-            UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
-            uiManager.addUIBlock(new UIBlock() {
-                @Override
-                public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
-                    try {
-                        View view = nativeViewHierarchyManager.resolveView(id);
-                        if (view != null){
-                            UserExperior.exposeSensitiveView(view);
-                        }
-                    } catch(Exception e) {
-                        Log.d("UserExperior", "exposeSensitiveView: can't find view by id: " + id);
-                    }
-                }
-            });
-        }
-
-        @ReactMethod
-        public void unmarkAllSensitives() {
-            try {
-                UserExperior.unmarkAllSensitives();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         
         @ReactMethod
@@ -464,13 +401,13 @@ public class RNUserExperiorPackage implements ReactPackage {
         }
 
         @ReactMethod
-        private void setUserExperiorListener(){
+        public void setUserExperiorListener(){
             UserExperior.setUserExperiorListener(new UserExperiorListener() {
                 @Override
                 public void onUserExperiorStarted() {
-                    //WritableMap params = Arguments.createMap();
-                    //params.putBoolean("success", true);
-                    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("ON_USER_EXPERIOR_STARTED", true);
+                    WritableMap params = Arguments.createMap();
+                    params.putBoolean("success", true);
+                    getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("ON_USER_EXPERIOR_STARTED_INTERNAL", "true");
                 }
             });
         }
