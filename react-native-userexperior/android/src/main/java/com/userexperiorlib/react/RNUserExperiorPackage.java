@@ -110,21 +110,20 @@ public class RNUserExperiorPackage implements ReactPackage {
         @ReactMethod
         public void setUserProperties(ReadableMap properties) {
             if(properties != null) {
-                HashMap<String, Object> map = new HashMap<String, Object>();
-
-                ReadableMapKeySetIterator iterator = properties.keySetIterator();
-                while (iterator.hasNextKey()) {
-                    String key = iterator.nextKey();
-                    ReadableType type = properties.getType(key);
-                    if (type == ReadableType.Boolean) {
-                        map.put(key, properties.getBoolean(key));
-                    } else if (type == ReadableType.Number) {
-                        map.put(key, properties.getDouble(key));
-                    } else {
-                        map.put(key, properties.getString(key));
-                    }
-                }
                 try {
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                    while (iterator.hasNextKey()) {
+                        String key = iterator.nextKey();
+                        ReadableType type = properties.getType(key);
+                        if (type == ReadableType.Boolean) {
+                            map.put(key, properties.getBoolean(key));
+                        } else if (type == ReadableType.Number) {
+                            map.put(key, properties.getDouble(key));
+                        } else {
+                            map.put(key, properties.getString(key));
+                        }
+                    }
                     UserExperior.setUserProperties(map);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -144,22 +143,20 @@ public class RNUserExperiorPackage implements ReactPackage {
         @ReactMethod
         public void logEvent(String event, ReadableMap properties) {
             if (properties != null) {
-
-                HashMap<String, Object> map = new HashMap<String, Object>();
-
-                ReadableMapKeySetIterator iterator = properties.keySetIterator();
-                while (iterator.hasNextKey()) {
-                    String key = iterator.nextKey();
-                    ReadableType type = properties.getType(key);
-                    if (type == ReadableType.Boolean) {
-                        map.put(key, properties.getBoolean(key));
-                    } else if (type == ReadableType.Number) {
-                        map.put(key, properties.getDouble(key));
-                    } else {
-                        map.put(key, properties.getString(key));
-                    }
-                }
                 try {
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                    while (iterator.hasNextKey()) {
+                        String key = iterator.nextKey();
+                        ReadableType type = properties.getType(key);
+                        if (type == ReadableType.Boolean) {
+                            map.put(key, properties.getBoolean(key));
+                        } else if (type == ReadableType.Number) {
+                            map.put(key, properties.getDouble(key));
+                        } else {
+                            map.put(key, properties.getString(key));
+                        }
+                    }
                     UserExperior.logEvent(event, map);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -185,22 +182,20 @@ public class RNUserExperiorPackage implements ReactPackage {
         @ReactMethod
         public void logMessage(String msg, ReadableMap properties) {
             if (properties != null) {
-
-                HashMap<String, Object> map = new HashMap<String, Object>();
-
-                ReadableMapKeySetIterator iterator = properties.keySetIterator();
-                while (iterator.hasNextKey()) {
-                    String key = iterator.nextKey();
-                    ReadableType type = properties.getType(key);
-                    if (type == ReadableType.Boolean) {
-                        map.put(key, properties.getBoolean(key));
-                    } else if (type == ReadableType.Number) {
-                        map.put(key, properties.getDouble(key));
-                    } else {
-                        map.put(key, properties.getString(key));
-                    }
-                }
                 try {
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                    while (iterator.hasNextKey()) {
+                        String key = iterator.nextKey();
+                        ReadableType type = properties.getType(key);
+                        if (type == ReadableType.Boolean) {
+                            map.put(key, properties.getBoolean(key));
+                        } else if (type == ReadableType.Number) {
+                            map.put(key, properties.getDouble(key));
+                        } else {
+                            map.put(key, properties.getString(key));
+                        }
+                    }
                     UserExperior.logMessage(msg, map);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -244,15 +239,13 @@ public class RNUserExperiorPackage implements ReactPackage {
         @ReactMethod
         public void startTimer(String timerName, ReadableMap properties) {
             if (properties != null) {
-
-                HashMap<String, String> map = new HashMap<String, String>();
-
-                ReadableMapKeySetIterator iterator = properties.keySetIterator();
-                while (iterator.hasNextKey()) {
-                    String key = iterator.nextKey();
-                    map.put(key, properties.getString(key));
-                }
                 try {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                    while (iterator.hasNextKey()) {
+                        String key = iterator.nextKey();
+                        map.put(key, properties.getString(key));
+                    }
                     UserExperior.startTimer(timerName, map);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -278,15 +271,13 @@ public class RNUserExperiorPackage implements ReactPackage {
         @ReactMethod
         public void endTimer(String timerName, ReadableMap properties) {
             if (properties != null) {
-
-                HashMap<String, String> map = new HashMap<String, String>();
-
-                ReadableMapKeySetIterator iterator = properties.keySetIterator();
-                while (iterator.hasNextKey()) {
-                    String key = iterator.nextKey();
-                    map.put(key, properties.getString(key));
-                }
                 try {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    ReadableMapKeySetIterator iterator = properties.keySetIterator();
+                    while (iterator.hasNextKey()) {
+                        String key = iterator.nextKey();
+                        map.put(key, properties.getString(key));
+                    }
                     UserExperior.endTimer(timerName, map);
                 } catch (Exception e) {
                     e.printStackTrace();
