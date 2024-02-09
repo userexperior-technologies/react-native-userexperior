@@ -79,12 +79,6 @@ RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
     });
 }
 
-// RCT_EXPORT_METHOD(consent){
-//     dispatch_async(self.methodQueue, ^{
-//         [UserExperior displayConsentRequest];
-//     });
-// }
-
 RCT_EXPORT_METHOD(optIn){
     dispatch_async(self.methodQueue, ^{
         [UserExperior consentOptIn];
@@ -110,13 +104,13 @@ RCT_EXPORT_METHOD(startTimer:(NSString*)timerName withProperties:(nullable NSDic
 
 RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
     dispatch_async(self.methodQueue, ^{
-        [UserExperior stopTimerWithName:timerName];
+        [UserExperior endTimerWithName:timerName];
     });
 }
 
 RCT_EXPORT_METHOD(endTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
 {
-    [UserExperior stopTimerWithName:timerName properties:properties];
+    [UserExperior endTimerWithName:timerName properties:properties];
 }
 
 RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties)
@@ -184,7 +178,6 @@ RCT_EXPORT_METHOD(getSessionUrl:(NSString*)tpName :(RCTPromiseResolveBlock)resol
     return @[RN_ON_USER_EXPERIOR_STARTED];
 }
 
-/// Will be called when this module's first listener is added.
 -(void)startObserving
 {
     if (self.numEventListeners == 0)
