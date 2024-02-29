@@ -79,6 +79,12 @@ RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
     });
 }
 
+// RCT_EXPORT_METHOD(consent){
+//     dispatch_async(self.methodQueue, ^{
+//         [UserExperior displayConsentRequest];
+//     });
+// }
+
 RCT_EXPORT_METHOD(optIn){
     dispatch_async(self.methodQueue, ^{
         [UserExperior consentOptIn];
@@ -178,6 +184,7 @@ RCT_EXPORT_METHOD(getSessionUrl:(NSString*)tpName :(RCTPromiseResolveBlock)resol
     return @[RN_ON_USER_EXPERIOR_STARTED];
 }
 
+/// Will be called when this module's first listener is added.
 -(void)startObserving
 {
     if (self.numEventListeners == 0)
