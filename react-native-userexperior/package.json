@@ -1,6 +1,6 @@
 {
   "name": "react-native-userexperior",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "spec": "latest",
   "description": "UserExperior react native module",
   "main": "index.js",
