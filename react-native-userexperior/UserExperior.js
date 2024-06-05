@@ -3,7 +3,7 @@ var { NativeModules, findNodeHandle, InteractionManager } = require('react-nativ
 var UserExperiorBridge = NativeModules.UserExperior;
 
 const fw = "rn"; // framework: React-Native
-const sv = "3.0.11"; // SDK/Plugin Version
+const sv = "3.0.12"; // SDK/Plugin Version
 
 class UserExperior {
 
@@ -55,23 +55,7 @@ class UserExperior {
             UserExperiorBridge.logEvent(eventName);
         }
     }
-
-    static logMessage(messageName) {
-        if (!messageName) {
-            console.log('UserExperior : messageName param is invalid');
-            return;
-        }
-        UserExperiorBridge.logMessage(messageName);
-    }
-
-    static logMessage(messageName, properties) {
-        if(typeof properties !== "undefined" || properties !== null){
-            UserExperiorBridge.logMessage(messageName, properties);
-        } else {
-            UserExperiorBridge.logMessage(messageName);
-        }
-    }
-
+    
     static startScreen(screenName) {
         if (!screenName) {
             console.log('UserExperior : startScreen params are invalid');
@@ -158,10 +142,6 @@ class UserExperior {
     static getOptOutStatus() {
         return UserExperiorBridge.getOptOutStatus();
     }
-
-    /*static consent() {
-        UserExperiorBridge.consent();
-    }*/
 
     static isRecording() {
         return UserExperiorBridge.isRecording();

@@ -1,11 +1,9 @@
 
 #import "RNUserExperior.h"
 @import UserExperiorSDK;
-#import <objc/runtime.h>
 
 #import <React/RCTUIManager.h>
 #import <React/RCTUIManagerUtils.h>
-#import <React/RCTEventEmitter.h>
 
 static NSString* const RN_ON_USER_EXPERIOR_STARTED = @"ON_USER_EXPERIOR_STARTED";
 
@@ -14,8 +12,6 @@ static NSString* const RN_ON_USER_EXPERIOR_STARTED = @"ON_USER_EXPERIOR_STARTED"
 @end
 
 @implementation RNUserExperior
-
-@synthesize bridge = _bridge;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -31,117 +27,119 @@ RCT_EXPORT_METHOD(startRecording: (NSString *) versionKey withFw: (NSString *) f
     });
 }
 
-RCT_EXPORT_METHOD(setUserIdentifier: (NSString *) userIdentifier){
+RCT_EXPORT_METHOD(setUserIdentifier: (NSString *) userIdentifier) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior setUserIdentifier:userIdentifier];
     });
 }
 
-RCT_EXPORT_METHOD(startScreen: (NSString *) screenName){
+RCT_EXPORT_METHOD(startScreen: (NSString *) screenName) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior startScreenWithName:screenName];
     });
 }
     
-RCT_EXPORT_METHOD(resumeRecording){
+RCT_EXPORT_METHOD(resumeRecording) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior resumeRecording];
     });
 }
  
-RCT_EXPORT_METHOD(pauseRecording){
+RCT_EXPORT_METHOD(pauseRecording){ 
     dispatch_async(self.methodQueue, ^{
         [UserExperior pauseRecording];
     });
 }
 
-RCT_EXPORT_METHOD(stopRecording){
+RCT_EXPORT_METHOD(stopRecording) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior stopRecording];
     });
 }
 
-RCT_EXPORT_METHOD(addInSecureViewBucket: (nonnull NSNumber *) tag) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        if (view) {
-            [UserExperior markSensitiveViewsWithViewToSecure:@[view]];
-        }
-    });
+RCT_EXPORT_METHOD(addInSecureViewBucket: (id) tag) {
+	NSNumber* reactTag = [self tagNumberFromTag:tag];
+	if (reactTag) {
+		dispatch_async(RCTGetUIManagerQueue(), ^
+					   {
+			[self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry)
+			 {
+				UIView* view = viewRegistry[reactTag];
+				if (view) {
+					[UserExperior markSensitiveViewsWithViewToSecure:@[view]];
+				} else {
+					NSLog(@"RNUserExperior:addInSecureViewBucket - Unable to find view for reactTag %@", reactTag);
+				}
+			}];
+		});
+	} else {
+		NSLog(@"RNUserExperior:addInSecureViewBucket - Unable to find reactTag from %@", tag);
+	}
 }
 
-RCT_EXPORT_METHOD(removeFromSecureViewBucket: (nonnull NSNumber *) tag) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIView* view = [self.bridge.uiManager viewForReactTag:tag];
-        if (view) {
-            [UserExperior unmarkSensitiveViewsWithViewToUnBlock:@[view]];
-        }
-    });
+
+RCT_EXPORT_METHOD(removeFromSecureViewBucket: (id) tag) {
+	NSNumber* reactTag = [self tagNumberFromTag:tag];
+	if (reactTag) {
+		dispatch_async(RCTGetUIManagerQueue(), ^
+					   {
+			[self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry)
+			 {
+				UIView* view = viewRegistry[reactTag];
+				if (view) {
+					[UserExperior unmarkSensitiveViewsWithViewToUnBlock:@[view]];
+				} else {
+					NSLog(@"RNUserExperior:removeFromSecureViewBucket - Unable to find view for reactTag %@", reactTag);
+				}
+			}];
+		});
+	} else {
+		NSLog(@"RNUserExperior:removeFromSecureViewBucket - Unable to find reactTag from %@", tag);
+	}
 }
 
-// RCT_EXPORT_METHOD(consent){
-//     dispatch_async(self.methodQueue, ^{
-//         [UserExperior displayConsentRequest];
-//     });
-// }
-
-RCT_EXPORT_METHOD(optIn){
+RCT_EXPORT_METHOD(optIn) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior consentOptIn];
     });
 }
 
-RCT_EXPORT_METHOD(optOut){
+RCT_EXPORT_METHOD(optOut) {
     dispatch_async(self.methodQueue, ^{
         [UserExperior consentOptOut];
     });
 }
 
-RCT_EXPORT_METHOD(startTimer: (NSString *) timerName){
+RCT_EXPORT_METHOD(startTimer: (NSString *) timerName) {
     dispatch_async(self.methodQueue, ^{
-        [UserExperior startTimerWithName:timerName];
+        [UserExperior startTimerWithName:timerName properties:@{}];
     });
 }
 
-RCT_EXPORT_METHOD(startTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
-{
+RCT_EXPORT_METHOD(startTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties) {
     [UserExperior startTimerWithName:timerName properties:properties];
 }
 
-RCT_EXPORT_METHOD(endTimer: (NSString *) timerName){
+RCT_EXPORT_METHOD(endTimer: (NSString *) timerName) {
     dispatch_async(self.methodQueue, ^{
-        [UserExperior endTimerWithName:timerName];
+        [UserExperior endTimerWithName:timerName properties:@{}];
     });
 }
 
-RCT_EXPORT_METHOD(endTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
-{
+RCT_EXPORT_METHOD(endTimer:(NSString*)timerName withProperties:(nullable NSDictionary<NSString*, id>*)properties) {
     [UserExperior endTimerWithName:timerName properties:properties];
 }
 
-RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties)
-{
+RCT_EXPORT_METHOD(setUserProperties:(nullable NSDictionary<NSString*, id>*)properties) {
     [UserExperior setUserProperties:properties];
 }
 
-RCT_EXPORT_METHOD(logEvent:(NSString*)eventName)
-{
+RCT_EXPORT_METHOD(logEvent:(NSString*)eventName) {
     [UserExperior logEventWithName:eventName];
 }
 
-RCT_EXPORT_METHOD(logEvent:(NSString*)eventName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
-{
+RCT_EXPORT_METHOD(logEvent:(NSString*)eventName withProperties:(nullable NSDictionary<NSString*, id>*)properties) {
     [UserExperior logEventWithName:eventName properties:properties];
-}
-
-RCT_EXPORT_METHOD(logMessage:(NSString*)messageName)
-{
-    [UserExperior logMessageWithName:messageName];
-}
-
-RCT_EXPORT_METHOD(logMessage:(NSString*)messageName withProperties:(nullable NSDictionary<NSString*, id>*)properties)
-{
-    [UserExperior logMessageWithName:messageName properties:properties];
 }
 
 // using Promise
@@ -152,8 +150,7 @@ RCT_EXPORT_METHOD(getOptOutStatus:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
     resolve(boolNumber);
 }
 
-RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     BOOL status = [UserExperior isRecording];
     NSNumber *boolNumber = [NSNumber numberWithBool:status];
     resolve(boolNumber);
@@ -161,15 +158,11 @@ RCT_EXPORT_METHOD(isRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
 
 
 RCT_EXPORT_METHOD(getSessionUrl:(NSString*)tpName :(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
+                  rejecter:(RCTPromiseRejectBlock)reject) {
     NSString *url = [UserExperior getSessionUrlWithPlatformName:tpName];
-    if (url)
-    {
+    if (url) {
         resolve(url);
-    }
-    else
-    {
+    } else {
         NSString *code = @"no_url";
         NSString *message = @"Could not retrieve the url for the current session.";
         NSError *error = [NSError errorWithDomain:@"RNUE" code:2 userInfo:nil];
@@ -185,34 +178,38 @@ RCT_EXPORT_METHOD(getSessionUrl:(NSString*)tpName :(RCTPromiseResolveBlock)resol
 }
 
 /// Will be called when this module's first listener is added.
--(void)startObserving
-{
-    if (self.numEventListeners == 0)
-    {
+-(void)startObserving {
+    if (self.numEventListeners == 0) {
         self.numEventListeners++;
         [self senderVerification:YES];
     }
 }
 
--(void)stopObserving
-{
+-(void)stopObserving {
     
 }
 
-- (void)senderVerification:(BOOL)result
-{
-    if (self.numEventListeners > 0)
-    {
+- (void)senderVerification:(BOOL)result {
+    if (self.numEventListeners > 0) {
         [self sendEventWithName:RN_ON_USER_EXPERIOR_STARTED body:@(YES)];
     }
 }
 
-- (void)userExperiorSessionDidStart
-{
-    if (self.numEventListeners > 0)
-    {
+- (void)userExperiorSessionDidStart {
+    if (self.numEventListeners > 0) {
         [self senderVerification:YES];
     }
+}
+
+- (NSNumber*)tagNumberFromTag:(id)tag {
+	NSNumber* reactTag = nil;
+	if ([tag isKindOfClass:NSDictionary.class]) {
+		reactTag = tag[@"_nativeTag"];
+	} else if ([tag isKindOfClass:NSNumber.class]) {
+		reactTag = tag;
+	}
+
+	return reactTag;
 }
 
 @end
