@@ -151,6 +151,14 @@ class UserExperior {
         var url = UserExperiorBridge.getSessionUrl(tpName);
         return url;
     }    
+
+    static startScreenTransition() {
+        UserExperiorBridge.startScreenTransition();
+    }
+
+    static endScreenTransition() {
+        UserExperiorBridge.endScreenTransition();
+    }
 }
 
 module.exports = UserExperior;

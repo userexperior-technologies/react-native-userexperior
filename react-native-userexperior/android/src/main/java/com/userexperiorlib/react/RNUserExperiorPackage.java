@@ -465,5 +465,23 @@ public class RNUserExperiorPackage implements ReactPackage {
                 }
             });
         }
+
+        @ReactMethod
+        public void startScreenTransition() {
+            try {
+                UserExperior.setInScreenTransitioning(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @ReactMethod
+        public void endScreenTransition() {
+            try {
+                UserExperior.setInScreenTransitioning(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
