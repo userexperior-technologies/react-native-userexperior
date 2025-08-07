@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-	implementation 'com.userexperior:userexperior-android:7.5.2'
+	implementation 'com.userexperior:userexperior-android:7.5.3'
 	implementation 'com.facebook.react:react-native:+'
 }
